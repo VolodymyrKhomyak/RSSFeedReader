@@ -1,50 +1,62 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+
+Version change: [unknown] -> 0.1.0
+Modified principles: placeholder template -> Concrete core principles (Security by Default; Maintainability & Modular Design; Testable Core Behavior; MVP Simplicity; Observability & Versioning)
+Added sections: Security & Constraints, Development Workflow
+Removed sections: none
+Templates requiring updates: ⚠ /Users/vkhomiak/projects/GitHubSpecKit/TrainingProjects/RSSFeedReader/.specify/templates/plan-template.md (pending)
+						  ⚠ /Users/vkhomiak/projects/GitHubSpecKit/TrainingProjects/RSSFeedReader/.specify/templates/spec-template.md (pending)
+						  ⚠ /Users/vkhomiak/projects/GitHubSpecKit/TrainingProjects/RSSFeedReader/.specify/templates/tasks-template.md (pending)
+Follow-up TODOs: RATIFICATION_DATE left as TODO
+-->
+
+# RSS Feed Reader Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Security by Default
+All external or user-provided content MUST be treated as untrusted. For the MVP (no feed fetching), this means:
+- No HTML rendering of external feed content in the UI. If feed content is added later, sanitize with a vetted library before display.
+- Any future network fetches MUST use HttpClient with timeouts, cancellation, and limited concurrency. Credentials and secrets MUST not be hardcoded.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Maintainability & Modular Design
+Code MUST be organized with clear separation between backend API and frontend UI. Concretely:
+- Backend endpoints expose a minimal, well-documented contract: add subscription, list subscriptions.
+- Keep subscription storage behind a single abstraction to allow swapping in-memory storage for a persistent store without wide refactors.
+- Remove Blazor template demo pages before implementing MVP pages (see TechStack cleanup steps).
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Testable Core Behavior (NON-NEGOTIABLE)
+Core behaviors are testable units and MUST have automated tests before changes are merged. Specifically:
+- Unit tests for the subscription add/list logic (backend and any shared models).
+- Integration or end-to-end tests that verify the frontend can add a subscription and display it (can be minimal / run locally).
+- CI must run unit tests on every PR; failing tests block merges.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. MVP Simplicity (Scope Discipline)
+The MVP scope is intentionally minimal. Changes that expand scope MUST be approved via PR with an explicit rationale and migration plan. Rules:
+- MVP implementation MUST store subscriptions in memory and accept URLs without validation.
+- No feed fetching, parsing, or background polling in MVP code paths.
+- Any post-MVP features must be behind feature flags or added in separate branches/PRs.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Observability, Logging & Versioning
+Even for a POC, maintain minimal observability and a clear versioning policy:
+- Use structured logging for key events (subscription added, errors). Logs MUST not contain secrets.
+- Follow semantic versioning for releases. Internal changes to wording or docs → PATCH; new principle added → MINOR; principle removal or incompatible governance change → MAJOR.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Security & Constraints
+The project targets a local, single-user POC environment. Constraints:
+- Default runtime behavior must not perform network calls. Any network-capable code must be opt-in and clearly documented.
+- Sanitize user input that will be rendered in the UI. Escape content by default.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Development Workflow
+- Pull requests require at least one approving reviewer and passing CI (tests + linters).
+- Minor documentation or wording fixes should be implemented as PATCH-level amendments to this constitution.
+- Use the Tech Stack guidance (TechStack.md) for cleanup and port configuration before implementing features.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+Amendments to this constitution follow this process:
+- Propose change in a dedicated branch with a PR describing the change and migration implications.
+- Two approving reviewers required for MINOR/PATCH changes. MAJOR changes require explicit maintainers' sign-off.
+- The PR must state the required version bump (MAJOR/MINOR/PATCH) and justification.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
-
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 0.1.0 | **Ratified**: TODO(RATIFICATION_DATE): identify original adoption date | **Last Amended**: 2026-06-09
