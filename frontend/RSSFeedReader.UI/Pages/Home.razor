@@ -1,0 +1,85 @@
+﻿@page "/"
+@inject RSSFeedReader.UI.Services.SubscriptionApiClient ApiClient
+
+<PageTitle>Subscriptions</PageTitle>
+
+<h1>Subscriptions</h1>
+
+<div class="mb-3">
+    <label for="feedUrl" class="form-label">Feed URL</label>
+    <input id="feedUrl" class="form-control" @bind="url" placeholder="https://example.com/feed.xml" />
+    <button class="btn btn-primary mt-2" @onclick="AddSubscriptionAsync" disabled="@isSubmitting">Add subscription</button>
+</div>
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger" role="alert">@errorMessage</div>
+}
+
+@if (subscriptions.Count == 0)
+{
+    <p>No subscriptions yet. Add one to get started.</p>
+}
+else
+{
+    <div class="list-group">
+        @foreach (var subscription in subscriptions)
+        {
+            <div class="list-group-item">@subscription.Url</div>
+        }
+    </div>
+}
+
+@code {
+    private string url = string.Empty;
+    private string errorMessage = string.Empty;
+    private bool isSubmitting;
+    private List<RSSFeedReader.UI.Services.SubscriptionItem> subscriptions = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadSubscriptionsAsync();
+    }
+
+    private async Task LoadSubscriptionsAsync()
+    {
+        errorMessage = string.Empty;
+
+        try
+        {
+            subscriptions = (await ApiClient.GetSubscriptionsAsync()).ToList();
+        }
+        catch
+        {
+            errorMessage = "Unable to load subscriptions. Please ensure the backend is running.";
+        }
+    }
+
+    private async Task AddSubscriptionAsync()
+    {
+        errorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(url))
+        {
+            errorMessage = "Please enter a feed URL.";
+            return;
+        }
+
+        isSubmitting = true;
+
+        try
+        {
+            await ApiClient.AddSubscriptionAsync(url.Trim());
+            url = string.Empty;
+            await LoadSubscriptionsAsync();
+        }
+        catch
+        {
+            errorMessage = "Unable to add subscription. Please try again.";
+        }
+        finally
+        {
+            isSubmitting = false;
+        }
+    }
+}

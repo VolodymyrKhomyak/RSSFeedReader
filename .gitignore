@@ -1,0 +1,36 @@
+# Build artifacts
+bin/
+obj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.vscode/
+
+# Visual Studio for Mac
+*.pidb
+*.svd
+
+# Rider
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/packages/
+
+# VS temporary files
+*.tmp
+*.log
+
+# Blazor
+wwwroot/obj/
+wwwroot/bin/
+
+# dotnet watch
+.dotnetwatch/

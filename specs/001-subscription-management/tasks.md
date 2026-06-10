@@ -8,11 +8,11 @@
 
 **Purpose**: Initialize the backend/frontend workspace and create the foundational project structure.
 
-- [ ] T001 Create backend project scaffold in `backend/RSSFeedReader.Api/Program.cs`
-- [ ] T002 Create frontend project scaffold in `frontend/RSSFeedReader.UI/Program.cs`
-- [ ] T003 [P] Create backend subscription model in `backend/RSSFeedReader.Api/Models/Subscription.cs`
-- [ ] T004 [P] Create backend subscription storage abstraction in `backend/RSSFeedReader.Api/Services/ISubscriptionStore.cs`
-- [ ] T005 [P] Create concrete in-memory storage implementation in `backend/RSSFeedReader.Api/Services/InMemorySubscriptionStore.cs`
+- [x] T001 Create backend project scaffold in `backend/RSSFeedReader.Api/Program.cs`
+- [x] T002 Create frontend project scaffold in `frontend/RSSFeedReader.UI/Program.cs`
+- [x] T003 [P] Create backend subscription model in `backend/RSSFeedReader.Api/Models/Subscription.cs`
+- [x] T004 [P] Create backend subscription storage abstraction in `backend/RSSFeedReader.Api/Services/ISubscriptionStore.cs`
+- [x] T005 [P] Create concrete in-memory storage implementation in `backend/RSSFeedReader.Api/Services/InMemorySubscriptionStore.cs`
 
 ---
 
@@ -20,11 +20,11 @@
 
 **Purpose**: Implement the core backend/front-end plumbing needed before any user story work can begin.
 
-- [ ] T006 Configure backend dependency injection and CORS in `backend/RSSFeedReader.Api/Program.cs`
-- [ ] T007 Create `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs` with placeholder routing for GET and POST
-- [ ] T008 Create frontend app configuration in `frontend/RSSFeedReader.UI/wwwroot/appsettings.json`
-- [ ] T009 Replace Blazor template demo pages in `frontend/RSSFeedReader.UI/Pages/` with a single MVP landing page structure
-- [ ] T010 Create frontend subscription API client in `frontend/RSSFeedReader.UI/Services/SubscriptionApiClient.cs`
+- [x] T006 Configure backend dependency injection and CORS in `backend/RSSFeedReader.Api/Program.cs`
+- [x] T007 Create `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs` with placeholder routing for GET and POST
+- [x] T008 Create frontend app configuration in `frontend/RSSFeedReader.UI/wwwroot/appsettings.json`
+- [x] T009 Replace Blazor template demo pages in `frontend/RSSFeedReader.UI/Pages/` with a single MVP landing page structure
+- [x] T010 Create frontend subscription API client in `frontend/RSSFeedReader.UI/Services/SubscriptionApiClient.cs`
 
 **Checkpoint**: The backend API and frontend project are scaffolded, CORS is configured, and the core subscription service abstraction exists.
 
@@ -36,11 +36,11 @@
 
 **Independent Test**: Open the UI, enter a feed URL, click add, and verify the subscription is sent to the backend and stored in memory.
 
-- [ ] T011 [US1] Implement backend `POST /api/subscriptions` in `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs`
-- [ ] T012 [US1] Implement backend request body validation and `201 Created` response handling in `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs`
-- [ ] T013 [US1] Implement frontend add-subscription UI in `frontend/RSSFeedReader.UI/Pages/Index.razor`
-- [ ] T014 [US1] Wire frontend add button to `frontend/RSSFeedReader.UI/Services/SubscriptionApiClient.cs`
-- [ ] T015 [US1] Add a backend unit test for the in-memory subscription store in `backend/RSSFeedReader.Api.Tests/UnitTests/SubscriptionStoreTests.cs`
+- [x] T011 [US1] Implement backend `POST /api/subscriptions` in `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs`
+- [x] T012 [US1] Implement backend request body validation and `201 Created` response handling in `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs`
+- [x] T013 [US1] Implement frontend add-subscription UI in `frontend/RSSFeedReader.UI/Pages/Home.razor`
+- [x] T014 [US1] Wire frontend add button to `frontend/RSSFeedReader.UI/Services/SubscriptionApiClient.cs`
+- [x] T015 [US1] Add a backend unit test for the in-memory subscription store in `backend/RSSFeedReader.Api.Tests/UnitTests/SubscriptionStoreTests.cs`
 
 **Checkpoint**: A user can add a subscription URL from the frontend and the backend stores it in memory.
 
@@ -52,10 +52,10 @@
 
 **Independent Test**: Add multiple subscriptions in the UI and verify the list refreshes to show all added URLs.
 
-- [ ] T016 [US2] Implement backend `GET /api/subscriptions` in `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs`
-- [ ] T017 [US2] Implement frontend subscription list rendering in `frontend/RSSFeedReader.UI/Pages/Index.razor`
-- [ ] T018 [US2] Update frontend refresh behavior so the list is refreshed automatically after adding a subscription in `frontend/RSSFeedReader.UI/Pages/Index.razor`
-- [ ] T019 [US2] Add a frontend integration verification task to confirm list updates in `frontend/RSSFeedReader.UI/Pages/Index.razor`
+- [x] T016 [US2] Implement backend `GET /api/subscriptions` in `backend/RSSFeedReader.Api/Controllers/SubscriptionsController.cs`
+- [x] T017 [US2] Implement frontend subscription list rendering in `frontend/RSSFeedReader.UI/Pages/Home.razor`
+- [x] T018 [US2] Update frontend refresh behavior so the list is refreshed automatically after adding a subscription in `frontend/RSSFeedReader.UI/Pages/Home.razor`
+- [x] T019 [US2] Add a frontend integration verification task to confirm list updates in `frontend/RSSFeedReader.UI/Pages/Index.razor`
 
 **Checkpoint**: The UI shows the current subscriptions list and updates after each add action.
 
@@ -67,9 +67,9 @@
 
 **Independent Test**: This is a deferred extension; a placeholder should be present for later implementation.
 
-- [ ] T020 [US3] Add placeholder backend endpoint in `backend/RSSFeedReader.Api/Controllers/FeedsController.cs`
-- [ ] T021 [US3] Add placeholder frontend refresh UI in `frontend/RSSFeedReader.UI/Pages/FeedRefresh.razor`
-- [ ] T022 [US3] Document the extended refresh workflow in `specs/001-subscription-management/contracts/api-contract.md`
+- [x] T020 [US3] Add placeholder backend endpoint in `backend/RSSFeedReader.Api/Controllers/FeedsController.cs`
+- [x] T021 [US3] Add placeholder frontend refresh UI in `frontend/RSSFeedReader.UI/Pages/FeedRefresh.razor`
+- [x] T022 [US3] Document the extended refresh workflow in `specs/001-subscription-management/contracts/api-contract.md`
 
 **Checkpoint**: The extended-MVP contract is captured and the refresh flow is scaffolded without changing MVP behavior.
 
@@ -79,10 +79,10 @@
 
 **Purpose**: Final cleanup, documentation updates, and validation across the feature.
 
-- [ ] T023 [P] Update `specs/001-subscription-management/quickstart.md` to match the actual backend/frontend launch commands and project structure
-- [ ] T024 [P] Update `specs/001-subscription-management/checklists/requirements.md` to confirm implementation readiness
-- [ ] T025 [ ] Review `specs/001-subscription-management/contracts/api-contract.md` and confirm the final backend routes and payloads match implementation
-- [ ] T026 [ ] Add or update a README note in `README.md` describing how this feature fits the RSS Feed Reader MVP
+- [x] T023 [P] Update `specs/001-subscription-management/quickstart.md` to match the actual backend/frontend launch commands and project structure
+- [x] T024 [P] Update `specs/001-subscription-management/checklists/requirements.md` to confirm implementation readiness
+- [x] T025 [ ] Review `specs/001-subscription-management/contracts/api-contract.md` and confirm the final backend routes and payloads match implementation
+- [x] T026 [ ] Add or update a README note in `README.md` describing how this feature fits the RSS Feed Reader MVP
 
 ---
 
